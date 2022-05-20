@@ -26,8 +26,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG'] == 'True'
 
-ALLOWED_HOSTS = ['*'] # TODO: Add DNS for prod
-
+ALLOWED_HOSTS=['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
 
+    'corsheaders',
+
     'crispy_forms',
     'bootstrap4',
     'sorl.thumbnail',
@@ -67,6 +69,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware', # Required by Debug Toolbar
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -187,7 +190,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # TODO: A list of all the people who get code error notifications.
-ADMINS = [('Kevin', 'estalella.kevin@gmail.com'), ]  # TODO: A list of all the people who get code error notifications.
+ADMINS = [('Théo', 'theo.ribbi@palexpo.ch'), ]  # TODO: A list of all the people who get code error notifications.
 
 # Django Debug Toolbar
 INTERNAL_IPS = ['127.0.0.1', ]

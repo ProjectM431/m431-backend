@@ -24,7 +24,7 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="API Palexpo",
+      title="API M431",
       default_version='v1'
    ),
    public=False,
