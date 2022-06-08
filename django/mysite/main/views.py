@@ -3,6 +3,7 @@ from django.shortcuts import render
 from main.models import Appreciation, Observation
 from common.drf import CustomListAPIView, CustomPermission, CustomListCreateAPIView, CustomRetrieveUpdateDestroyAPIView
 from rest_framework import serializers, generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 def home(request):
@@ -16,6 +17,8 @@ class AppreciationList(CustomListCreateAPIView):
     model = Appreciation
     fields = "__all__"
     search_fields = ('name',)
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('user',)
     # permission_classes = [CustomPermission]
 
 class AppreciationDetail(CustomRetrieveUpdateDestroyAPIView):
