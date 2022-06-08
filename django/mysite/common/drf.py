@@ -122,6 +122,7 @@ class CustomPermission(permissions.BasePermission):
     # get user profile that have right to change the object 
     def get_user_profile(self, obj):
         return obj.user # most common cases
+        
 
     # IF object have multiple owners
     # get users profiles that have right to change the object

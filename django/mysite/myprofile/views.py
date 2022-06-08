@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
+from rest_framework import serializers
 
 from myprofile.models import UserProfile
 from myprofile.forms import UserProfileEditForm, UserEditForm
@@ -11,6 +12,12 @@ from common.drf import CustomRetrieveUpdateDestroyAPIView, CustomListAPIView, Cu
 from django_filters.rest_framework import DjangoFilterBackend
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'username', 'email') 
+        read_only_fields = ('id',)
 
 def profile(request):
     return render(request, 'myprofile/detail.html')
@@ -53,7 +60,7 @@ class UserList(CustomListAPIView):
     exclude = ('password',)
     filter_fields = ('username',)
     search_fields = ('username',)
-    permission_classes = [CustomPermission]
+    # permission_classes = [CustomPermission]
 
 
 class UserDetail(CustomRetrieveUpdateDestroyAPIView):
@@ -62,7 +69,19 @@ class UserDetail(CustomRetrieveUpdateDestroyAPIView):
     """
     model = User
     exclude = ('password',)
-    permission_classes = [CustomPermission]
+    # permission_classes = [CustomPermission]
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    """ Custom response payload handler.
+
+    This function controlls the custom payload after login or token refresh. This data is returned through the web API.
+    """
+    serializedprofile = UserSerializer(user)
+    return {
+        'token': token,
+        'user': serializedprofile.data
+    }
+    
 
 
 # Exemple
@@ -77,3 +96,4 @@ class UserDetail(CustomRetrieveUpdateDestroyAPIView):
 #     filter_fields = ('username',)
 #     search_fields = ('username',)
 #     permission_classes = [CustomPermission]
+

@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os 
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -221,3 +222,11 @@ SWAGGER_SETTINGS = {
 # Cryspy form
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Django JWT
+REST_USE_JWT = True
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'myprofile.views.jwt_response_payload_handler',
+    # 'JWT_PAYLOAD_HANDLER': 'myprofile.views.jwt_payload_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=30000),
+    'JWT_ALLOW_REFRESH': True,
+}
