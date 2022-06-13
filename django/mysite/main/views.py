@@ -18,7 +18,7 @@ class AppreciationList(CustomListCreateAPIView):
     fields = "__all__"
     search_fields = ('name',)
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('user',)
+    filter_fields = ('user', 'appreciation')
     # permission_classes = [CustomPermission]
 
 class AppreciationDetail(CustomRetrieveUpdateDestroyAPIView):
@@ -44,6 +44,14 @@ class AppreciationDetail(CustomRetrieveUpdateDestroyAPIView):
 
 
 class ObservationList(CustomListCreateAPIView):
+    """
+    List all instances.
+    """
+    model = Observation
+    fields = "__all__"
+
+
+class ObservationDetail(CustomRetrieveUpdateDestroyAPIView):
     """
     List all instances.
     """

@@ -10,6 +10,7 @@ urlpatterns = [
     path('appreciations', views.AppreciationList.as_view()),
     path('observation', views.ObservationList.as_view()),
     path('appreciations/<int:pk>', views.AppreciationDetail.as_view()),
+    path('observation/<int:pk>', views.ObservationDetail.as_view()),
     
     path('api-token-auth/', obtain_jwt_token),
 
